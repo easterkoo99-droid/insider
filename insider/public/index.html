@@ -315,16 +315,16 @@
   }
 
   function getToken() {
-    let t = localStorage.getItem(KEY_TOKEN);
+    let t = sessionStorage.getItem(KEY_TOKEN);
     if (!t) {
       t = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36) + Math.random().toString(36).slice(2));
-      localStorage.setItem(KEY_TOKEN, t);
+      sessionStorage.setItem(KEY_TOKEN, t);
     }
     return t;
   }
-  const getSession = () => { try { return JSON.parse(localStorage.getItem(KEY_SESSION) || 'null'); } catch (_) { return null; } };
-  const setSession = (code, name) => localStorage.setItem(KEY_SESSION, JSON.stringify({ code, name }));
-  const clearSession = () => localStorage.removeItem(KEY_SESSION);
+  const getSession = () => { try { return JSON.parse(sessionStorage.getItem(KEY_SESSION) || 'null'); } catch (_) { return null; } };
+  const setSession = (code, name) => sessionStorage.setItem(KEY_SESSION, JSON.stringify({ code, name }));
+  const clearSession = () => sessionStorage.removeItem(KEY_SESSION);
 
   function send(event, data, done) {
     socket.emit(event, data || {}, (res) => {
